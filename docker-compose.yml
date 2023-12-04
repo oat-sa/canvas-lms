@@ -2,6 +2,9 @@
 version: '2.3'
 services:
   web: &WEB
+    container_name: web
+    ports:
+      - 41322:80
     build:
       context: .
     links:
@@ -15,9 +18,11 @@ services:
     command: bundle exec script/delayed_job run
 
   postgres:
+    container_name: postgres
     build: ./docker-compose/postgres
     environment:
       POSTGRES_PASSWORD: sekret
 
   redis:
+    container_name: redis
     image: redis:alpine
